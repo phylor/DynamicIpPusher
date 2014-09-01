@@ -1,3 +1,14 @@
+require 'sinatra/cross_origin'
+
+configure do
+  enable :cross_origin
+end
+
+options '/ipaddress' do
+	response.headers["Access-Control-Allow-Origin"] = "*"
+    	response.headers["Access-Control-Allow-Methods"] = "PUT"
+end
+
 put '/ipaddress' do
   ip = request.ip
 
