@@ -10,7 +10,11 @@ options '/ipaddress' do
 end
 
 put '/ipaddress' do
-  ip = request.ip
+  ip = request.env["HTTP_X_FORWARDED_FOR"]
+
+  if !ip or ip.empty?
+    ip = request.ip
+  end
 
   file = File.open('ipaddress.txt', 'w')
   file.write ip
